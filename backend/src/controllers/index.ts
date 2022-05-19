@@ -1,7 +1,7 @@
 import { Response } from 'express';
 import {
   RequestWithBody,
-} from '../interfaces/RequestsInterfaces';
+} from '../interfaces/RequestInterfaces';
 
 import Service from '../services';
 
