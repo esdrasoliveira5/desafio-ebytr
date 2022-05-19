@@ -2,8 +2,10 @@ import * as sinon from 'sinon';
 import chai from 'chai';
 import UserService from '../../../services/UserService';
 import { UserId } from '../../../types/UserIdType';
+import UserModel from '../../../models/UserModel';
 
-const user = new UserService();
+const model = new UserModel();
+const service = new UserService(model);
 const { expect } = chai;
 
 const payload = {
@@ -18,7 +20,7 @@ describe('3 - Test UserService', () => {
   describe('3.1 - method create', () => {
     before(async () => {
       sinon
-        .stub(user.model, 'create')
+        .stub(service.model, 'create')
         .resolves(payload as unknown as UserId);
     });
   
@@ -27,7 +29,7 @@ describe('3 - Test UserService', () => {
     })
   
     it('return the user created in the db', async () => {
-      const response = await user.create({
+      const response = await service.create({
         userName: 'Roberto',
         email: 'roberto@email.com',
         password: 'password',
