@@ -1,5 +1,5 @@
 import { Model } from '../interfaces/ModelInterface';
-import { ResponseError, ResponseUser } from '../interfaces/ResponsesInterface';
+import { ResponseError, ResponseUser } from '../interfaces/ResponsesInterfaces';
 
 abstract class Service<T> {
   constructor(public model: Model<T>) {}
