@@ -1,4 +1,4 @@
-import express, { Request, Response } from 'express';
+import express, { Router } from 'express';
 import Cors from 'cors';
 
 require('express-async-errors');
@@ -10,7 +10,6 @@ class App {
     this.app = express();
     this.app.use(Cors());
     this.app.use(express.json());
-    this.app.get('/', async ( _req: Request, res: Response) => res.status(200).json({message: 'OK'}));
   }
 
   public startServer(PORT: string | number = 3001): void {
@@ -18,6 +17,10 @@ class App {
       PORT,
       () => console.log(`Server running here 👉 http://localhost:${PORT}`),
     );
+  }
+
+  public addRouter(router: Router) {
+    this.app.use(router);
   }
 
   public getApp() {
