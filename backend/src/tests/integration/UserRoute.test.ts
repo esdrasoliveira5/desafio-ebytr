@@ -49,7 +49,7 @@ describe('1 - Test endpoint POST /user', () => {
         "_id": "6260bca97c58e5a0b7847cfa",
         "userName": "Roberto",
         "email": "roberto@email.com",
-        "password": "$2b$10$JOmGDGptDGC1.eLa3OMj0uAk4FxZT2SjLH0lbP3Uh9W7iDHGN3Lp6",
+        "password": "password",
         "tasks": [],
       });
     });
