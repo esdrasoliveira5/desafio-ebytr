@@ -1,5 +1,7 @@
 import * as sinon from 'sinon';
 import chai from 'chai';
+import UserService from '../../../services/UserService';
+import { User } from '../../../types/UserType';
 
 const user = new UserService();
 const { expect } = chai;
@@ -16,8 +18,8 @@ describe('3 - Test UserService', () => {
   describe('3.1 - method create', () => {
     before(async () => {
       sinon
-        .stub(user.service, 'create')
-        .resolves(payload);
+        .stub(user.model, 'create')
+        .resolves(payload as unknown as User);
     });
   
     after(()=>{
@@ -29,8 +31,12 @@ describe('3 - Test UserService', () => {
         userName: 'Roberto',
         email: 'roberto@email.com',
         password: 'password',
+        tasks: [],
       })
-      expect(response).to.be.deep.equal(payload);
+      expect(response).to.be.deep.equal({
+        status: 201,
+        response: payload,
+      });
     });
   });
 });
