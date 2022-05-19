@@ -7,11 +7,17 @@ import UserService from '../services/UserService';
 import { UserData } from '../types/UserDataType';
 
 class UserController extends Controller<UserData> {
+  private _route: string;
+
   constructor(
     service = new UserService(),
+    route = '/user',
   ) {
     super(service);
+    this._route = route;
   }
+
+  get route() { return this._route; }
 
   create = async (
     req: RequestWithBody<UserData>,
