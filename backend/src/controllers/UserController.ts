@@ -10,7 +10,7 @@ class UserController extends Controller<UserData> {
   private _route: string;
 
   constructor(
-    service = new UserService(),
+    public service: UserService,
     route = '/user',
   ) {
     super(service);

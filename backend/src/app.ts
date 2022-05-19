@@ -1,5 +1,6 @@
 import express, { Router } from 'express';
 import Cors from 'cors';
+import connectToDatabase from './connection';
 
 require('express-async-errors');
 
@@ -13,6 +14,8 @@ class App {
   }
 
   public startServer(PORT: string | number = 3001): void {
+    connectToDatabase();
+
     this.app.listen(
       PORT,
       () => console.log(`Server running here 👉 http://localhost:${PORT}`),

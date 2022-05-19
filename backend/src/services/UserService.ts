@@ -9,7 +9,7 @@ import { UserId } from '../types/UserIdType';
 import { User } from '../types/UserType';
 
 class UserService extends Service<User> {
-  constructor(model = new UserModel()) {
+  constructor(public model:UserModel) {
     super(model);
   }
 
