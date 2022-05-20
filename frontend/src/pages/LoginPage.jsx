@@ -6,6 +6,7 @@ function LoginPage() {
   return (
     <>
       <Header />
+      LOGIN
       <Footer />
     </>
   );
