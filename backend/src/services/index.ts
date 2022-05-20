@@ -21,6 +21,8 @@ abstract class Service<T> {
   }
 
   abstract create(obj: T): Promise<ResponseLogin<T> | ResponseError>;
+
+  abstract readOne(obj: T): Promise<ResponseLogin<T> | ResponseError>;
 }
 
 export default Service;
