@@ -4,8 +4,9 @@ import chaiHttp = require('chai-http');
 
 import { Response } from 'superagent';
 import server from '../../index';
+import UserModel from '../../models/UserModel';
 
-const tasks = new TaskModel();
+const user = new UserModel();
 
 chai.use(chaiHttp);
 
@@ -25,7 +26,7 @@ describe('1 - Test endpoint POST /task', () => {
 
     before(() => {
       sinon
-      .stub(tasks.model, 'create')
+      .stub(user.model, 'create')
       .resolves(payload);
     });
     after(()=>{
@@ -56,7 +57,7 @@ describe('1 - Test endpoint POST /task', () => {
     let chaiHttpResponse: Response;
     before(() => {
       sinon
-      .stub(tasks.model, 'create')
+      .stub(user.model, 'create')
       .rejects({ message: 'Internal Server Error'});
     });
     after(()=>{

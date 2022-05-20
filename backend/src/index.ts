@@ -20,6 +20,7 @@ const taskRouter = new CustomRouter<User | TaskType>();
 userRouter.addRoute(userController);
 taskRouter.addRoute(taskController);
 server.addRouter(userRouter.router);
+server.addRouter(taskRouter.router);
 
 server.startServer();
 

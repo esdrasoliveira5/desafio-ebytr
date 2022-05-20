@@ -28,18 +28,23 @@ class TaskService extends Service<User> {
     return { status: 200, response: response.tasks };
   };
 
-  readOne = async (id: string):
+  readOne = async (token: string | undefined, id: string):
   Promise<ResponseTask<TaskType> | ResponseError> => {
+    const tokenValidate = this.jwt.validate(token);
+    if ('status' in tokenValidate) return tokenValidate;
     const zodValidation = this.zod.idValidation(id);
     if (zodValidation) return zodValidation;
-    const response = await this.model.readOne({ _id: id });
+    const response = await this.model.readOne({ _id: tokenValidate.id });
     if (response === null) {
       return {
         status: 404,
         response: { error: 'User Not Found' },
       };
     }
-    const filterTask = response.tasks.filter((task) => task._id === id);
+    
+    const filterTask = response.tasks.filter(
+      (task) => task._id?.toString() === id,
+    );
     return { status: 200, response: filterTask[0] };
   };
 }

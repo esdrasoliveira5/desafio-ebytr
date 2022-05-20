@@ -36,9 +36,13 @@ class TaskController extends Controller<UserData> {
     req: RequestWithBody<TaskType>,
     res: Response,
   ): Promise<typeof res> => {
-    const { id } = req.headers;
-    
-    const { status, response } = await this.service.readOne(id as string);
+    const { id } = req.params;
+    const { authorization } = req.headers;
+
+    const { status, response } = await this.service.readOne(
+      authorization, 
+      id as string,
+    );
 
     return res.status(status).json(response);
   };
