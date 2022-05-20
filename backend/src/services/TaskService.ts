@@ -2,6 +2,7 @@ import Service from '.';
 import {
   ResponseError,
   ResponseTask,
+  ResponseTasks,
 } from '../interfaces/ResponsesInterfaces';
 import UserModel from '../models/UserModel';
 import { TaskType } from '../types/TasksType';
@@ -13,7 +14,7 @@ class TaskService extends Service<User> {
   }
 
   create = async (token: string | undefined, obj:TaskType):
-  Promise<ResponseTask<TaskType> | ResponseError> => {
+  Promise<ResponseTasks<TaskType> | ResponseError> => {
     const tokenValidate = this.jwt.validate(token);
     if ('status' in tokenValidate) return tokenValidate;
 
@@ -25,6 +26,21 @@ class TaskService extends Service<User> {
       };
     }
     return { status: 200, response: response.tasks };
+  };
+
+  readOne = async (id: string):
+  Promise<ResponseTask<TaskType> | ResponseError> => {
+    const zodValidation = this.zod.idValidation(id);
+    if (zodValidation) return zodValidation;
+    const response = await this.model.readOne({ _id: id });
+    if (response === null) {
+      return {
+        status: 404,
+        response: { error: 'User Not Found' },
+      };
+    }
+    const filterTask = response.tasks.filter((task) => task._id === id);
+    return { status: 200, response: filterTask[0] };
   };
 }
 

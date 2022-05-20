@@ -1,11 +1,14 @@
 import { ResponseError } from '../interfaces/ResponsesInterfaces';
 import { UserData, UserDataSchema } from '../types/UserDataType';
+import { UserIdSchema } from '../types/UserIdType';
 import { UserLogin, UserLoginSchema } from '../types/UserLoginType';
 
 class Zod {
   protected userLogin = UserLoginSchema;
 
   protected userData = UserDataSchema;
+
+  protected userId = UserIdSchema;
 
   userLoginValidation(obj: UserLogin): void | ResponseError {
     const parsedUser = this.userLogin.safeParse(obj);
@@ -25,6 +28,16 @@ class Zod {
       return {
         status: 400,
         response: { error: parsedUser.error },
+      };
+    }
+  }
+
+  idValidation(id: string | undefined): void | ResponseError {
+    const idValid = this.userId.safeParse({ _id: id });
+    if (!idValid.success) {      
+      return {
+        status: 400,
+        response: { error: idValid.error },
       };
     }
   }

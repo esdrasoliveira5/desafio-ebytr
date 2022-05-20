@@ -23,5 +23,9 @@ export interface ResponseLogin<T> extends Status {
   };
 }
 export interface ResponseTask<T> extends Status {
+  response: T;
+}
+
+export interface ResponseTasks<T> extends Status {
   response: T[];
 }
