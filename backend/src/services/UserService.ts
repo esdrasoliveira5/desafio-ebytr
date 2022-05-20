@@ -37,6 +37,8 @@ class UserService extends Service<User> {
 
   async readOne(obj: UserLogin):
   Promise<ResponseError | ResponseLogin<UserId>> {
+    const data = this.zod.userLoginValidation(obj);
+    if (data) return data;
     const response = await this.model.readOne({ email: obj.email }) as UserId;
     const hash = await this.bcrypt.compareIt(obj.password, response.password);
     if (hash) return hash;
