@@ -2,10 +2,8 @@ import Service from '.';
 import {
   ResponseError,
   ResponseLogin,
-  ResponseTask,
 } from '../interfaces/ResponsesInterfaces';
 import UserModel from '../models/UserModel';
-import { TaskType } from '../types/TasksType';
 import { UserData } from '../types/UserDataType';
 import { UserId } from '../types/UserIdType';
 import { UserLogin } from '../types/UserLoginType';
@@ -54,21 +52,6 @@ class UserService extends Service<User> {
     }
     return { status: 200, response: { user: response, token } };
   }
-
-  creatTask = async (token: string, obj:TaskType):
-  Promise<ResponseTask<TaskType> | ResponseError> => {
-    const tokenValidate = this.jwt.validate(token);
-    if ('status' in tokenValidate) return tokenValidate;
-
-    const response = await this.model.creatTask(tokenValidate.id, obj);
-    if (response === null) {
-      return {
-        status: 404,
-        response: { error: 'User Not Found' },
-      };
-    }
-    return { status: 200, response: response.tasks };
-  };
 }
 
 export default UserService;
