@@ -1,7 +1,11 @@
 import React, { useState } from 'react';
+import { useNavigate } from 'react-router-dom';
 import LabeledInput from './Input';
+import services from '../services/fetch';
 
 function FormRegister() {
+  const navigate = useNavigate();
+
   const [form, setForm] = useState({
     userName: '',
     email: '',
@@ -17,8 +21,12 @@ function FormRegister() {
     });
   };
 
-  const handleRegister = () => {
-    console.log('Register');
+  const handleRegister = async (event) => {
+    event.preventDefault();
+    const response = await services.register(form);
+    console.log(response);
+
+    navigate('/home');
   };
 
   return (
@@ -26,7 +34,7 @@ function FormRegister() {
       <LabeledInput
         type="text"
         name="userName"
-        value={form.name}
+        value={form.userName}
         handle={handleForms}
       />
       <LabeledInput
