@@ -8,7 +8,7 @@ const UserLoginSchema = z.object({
   password: z.string({
     required_error: 'password is required',
     invalid_type_error: 'password must be a string',
-  }),
+  }).min(8, { message: 'password must have min 8 characters' }),
 });
 
 export type UserLogin = z.infer<typeof UserLoginSchema>;

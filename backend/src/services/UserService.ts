@@ -42,6 +42,7 @@ class UserService extends Service<User> {
     const response = await this.model.readOne({ email: obj.email }) as UserId;
     const hash = await this.bcrypt.compareIt(obj.password, response.password);
     if (hash) return hash;
+
     const token = this.jwt.generate({ 
       id: response._id,
       email: response.email,

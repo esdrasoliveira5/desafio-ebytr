@@ -22,6 +22,7 @@ function FormLogin() {
   const handleLogin = async (event) => {
     event.preventDefault();
     const response = await services.loginUser(form);
+    console.log(response);
     if (response.error === undefined) {
       localStorage.setItem('to-do', JSON.stringify(response));
       navigate('/home');

@@ -1,6 +1,7 @@
 import { z } from 'zod'; 
 
 const TasksSchema = z.object({
+  _id: z.string().optional(),
   name: z.string({
     required_error: 'name is required',
     invalid_type_error: 'name must be a string',

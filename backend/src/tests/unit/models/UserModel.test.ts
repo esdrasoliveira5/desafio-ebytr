@@ -46,7 +46,7 @@ describe('2 - Test UserModel', () => {
   
     after(()=>{
       sinon.restore();
-    })
+    });
   
     it('return the user created in the db', async () => {
       const response = await user.readOne({
