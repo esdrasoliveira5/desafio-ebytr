@@ -7,12 +7,12 @@ import UserModel from '../models/UserModel';
 import { TaskType } from '../types/TasksType';
 import { User } from '../types/UserType';
 
-class UserService extends Service<User> {
+class TaskService extends Service<User> {
   constructor(public model:UserModel) {
     super(model);
   }
 
-  creatTask = async (token: string, obj:TaskType):
+  create = async (token: string | undefined, obj:TaskType):
   Promise<ResponseTask<TaskType> | ResponseError> => {
     const tokenValidate = this.jwt.validate(token);
     if ('status' in tokenValidate) return tokenValidate;
@@ -28,4 +28,4 @@ class UserService extends Service<User> {
   };
 }
 
-export default UserService;
+export default TaskService;
