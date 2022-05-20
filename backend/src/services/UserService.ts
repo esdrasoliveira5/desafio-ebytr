@@ -6,6 +6,7 @@ import {
 import UserModel from '../models/UserModel';
 import { UserData } from '../types/UserDataType';
 import { UserId } from '../types/UserIdType';
+import { UserLogin } from '../types/UserLoginType';
 import { User } from '../types/UserType';
 
 class UserService extends Service<User> {
@@ -33,6 +34,21 @@ class UserService extends Service<User> {
 
     return { status: 201, response: { user: response, token } };
   };
+
+  async readOne(obj: UserLogin):
+  Promise<ResponseError | ResponseLogin<UserId>> {
+    const response = await this.model.readOne({ email: obj.email }) as UserId;
+    const hash = await this.bcrypt.compareIt(obj.password, response.password);
+    if (hash) return hash;
+    const token = this.jwt.generate({ 
+      id: response._id,
+      email: response.email,
+    });
+    if (response === null) {
+      return { status: 404, response: { error: 'Not Found' } };
+    }
+    return { status: 200, response: { user: response, token } };
+  }
 }
 
 export default UserService;
