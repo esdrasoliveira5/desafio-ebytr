@@ -7,11 +7,10 @@ import UserModel from '../models/UserModel';
 import { UserData } from '../types/UserDataType';
 import { UserId } from '../types/UserIdType';
 import { User } from '../types/UserType';
-import Zod from '../validations/Zod';
 
 class UserService extends Service<User> {
-  constructor(public model:UserModel, public zod: Zod) {
-    super(model, zod);
+  constructor(public model:UserModel) {
+    super(model);
   }
 
   create = async (obj:UserData):

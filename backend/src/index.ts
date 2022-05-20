@@ -5,13 +5,10 @@ import CustomRouter from './Routes/Routes';
 import UserService from './services/UserService';
 import { UserData } from './types/UserDataType';
 import { User } from './types/UserType';
-import Zod from './validations/Zod';
 
 const server = new App();
-
-const zod = new Zod();
 const userModel = new UserModel();
-const userService = new UserService(userModel, zod);
+const userService = new UserService(userModel);
 const userController = new UserController(userService);
 const userRouter = new CustomRouter<User | UserData>();
 userRouter.addRoute(userController);
