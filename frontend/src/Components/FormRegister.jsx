@@ -1,4 +1,5 @@
 import React, { useEffect } from 'react';
+import LabeledInput from './Input';
 
 function FormRegister() {
   const [form, setForm] = useEffect({
@@ -22,42 +23,30 @@ function FormRegister() {
 
   return (
     <form>
-      <label htmlFor="userName">
-        <input
-          type="text"
-          id="userName"
-          name="userName"
-          value={form.name}
-          onChange={(event) => handleForms(event)}
-        />
-      </label>
-      <label htmlFor="email">
-        <input
-          type="text"
-          id="email"
-          name="email"
-          value={form.email}
-          onChange={(event) => handleForms(event)}
-        />
-      </label>
-      <label htmlFor="password">
-        <input
-          type="password"
-          id="password"
-          name="password"
-          value={form.password}
-          onChange={(event) => handleForms(event)}
-        />
-      </label>
-      <label htmlFor="confirmPassword">
-        <input
-          type="password"
-          id="confirmPassword"
-          name="confirmPassword"
-          value={form.confirmPassword}
-          onChange={(event) => handleForms(event)}
-        />
-      </label>
+      <LabeledInput
+        type="text"
+        name="userName"
+        value={form.name}
+        handle={handleForms}
+      />
+      <LabeledInput
+        type="text"
+        name="email"
+        value={form.email}
+        handle={handleForms}
+      />
+      <LabeledInput
+        type="password"
+        name="password"
+        value={form.password}
+        handle={handleForms}
+      />
+      <LabeledInput
+        type="password"
+        name="confirmPassword"
+        value={form.confirmPassword}
+        handle={handleForms}
+      />
       <button
         type="submit"
         onClick={handleRegister}
