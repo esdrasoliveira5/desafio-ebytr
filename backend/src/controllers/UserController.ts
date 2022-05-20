@@ -5,6 +5,7 @@ import {
 } from '../interfaces/RequestInterfaces';
 import UserService from '../services/UserService';
 import { UserData } from '../types/UserDataType';
+import { UserLogin } from '../types/UserLoginType';
 
 class UserController extends Controller<UserData> {
   private _route: string;
@@ -26,6 +27,17 @@ class UserController extends Controller<UserData> {
     const { body } = req;
     
     const { status, response } = await this.service.create(body);
+
+    return res.status(status).json(response);
+  };
+
+  readOne = async (
+    req: RequestWithBody<UserLogin>,
+    res: Response,
+  ): Promise<typeof res> => {
+    const { body } = req;
+    
+    const { status, response } = await this.service.readOne(body);
 
     return res.status(status).json(response);
   };
