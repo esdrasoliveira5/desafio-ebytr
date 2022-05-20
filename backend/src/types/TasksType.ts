@@ -1,4 +1,4 @@
-import { z } from 'zod'; 
+import { z } from 'zod';
 
 const TasksSchema = z.object({
   _id: z.string().optional(),
@@ -16,5 +16,5 @@ const TasksSchema = z.object({
   date: z.string().optional(),
 });
 
-export type Transaction = z.infer<typeof TasksSchema>;
+export type TaskType = z.infer<typeof TasksSchema>;
 export { TasksSchema };
