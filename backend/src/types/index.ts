@@ -7,7 +7,7 @@ export type UserEmail = {
   email: string,
 };
 
-export type UserId = {
+export type UserOrTaskId = {
   _id: string,
 };
 
