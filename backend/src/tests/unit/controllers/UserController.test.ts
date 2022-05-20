@@ -48,4 +48,29 @@ describe('1 - Test UserController', () => {
       expect((response.json as sinon.SinonStub).calledWith({ user: payload, token: 'token'})).to.be.equal(true);
     });
   });
+  describe('1.1 - method readOne', () => {
+    before(async () => {
+      request.body = {
+        email: 'roberto@email.com',
+        password: 'roberto_password',
+      }
+      response.status = sinon.stub().returns(response)
+      response.json = sinon.stub()
+      
+      sinon
+        .stub(controller.service, 'readOne')
+        .resolves({ status: 200, response: { user: payload, token: 'token'} });
+    });
+  
+    after(()=>{
+      sinon.restore();
+    })
+  
+    it('return the status 200 and the user', async () => {
+      await controller.create(request, response);
+      
+      expect((response.status as sinon.SinonStub).calledWith(201)).to.be.equal(true);
+      expect((response.json as sinon.SinonStub).calledWith({ user: payload, token: 'token'})).to.be.equal(true);
+    });
+  });
 });
