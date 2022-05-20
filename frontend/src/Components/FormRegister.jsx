@@ -2,6 +2,7 @@ import React, { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import LabeledInput from './Input';
 import services from '../services/fetch';
+import { FormStyled } from '../styles';
 
 function FormRegister() {
   const navigate = useNavigate();
@@ -31,28 +32,33 @@ function FormRegister() {
   };
 
   return (
-    <form>
+    <FormStyled>
+      Cadastrar
       <LabeledInput
         type="text"
         name="userName"
+        label="Nome de Usuario"
         value={form.userName}
         handle={handleForms}
       />
       <LabeledInput
         type="text"
         name="email"
+        label="Email"
         value={form.email}
         handle={handleForms}
       />
       <LabeledInput
         type="password"
         name="password"
+        label="Senha"
         value={form.password}
         handle={handleForms}
       />
       <LabeledInput
         type="password"
         name="confirmPassword"
+        label="Confirma Senha"
         value={form.confirmPassword}
         handle={handleForms}
       />
@@ -62,7 +68,7 @@ function FormRegister() {
       >
         Cadastrar
       </button>
-    </form>
+    </FormStyled>
   );
 }
 

@@ -2,6 +2,7 @@ import React, { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import LabeledInput from './Input';
 import services from '../services/fetch';
+import { FormStyled } from '../styles';
 
 function FormLogin() {
   const navigate = useNavigate();
@@ -22,7 +23,6 @@ function FormLogin() {
   const handleLogin = async (event) => {
     event.preventDefault();
     const response = await services.loginUser(form);
-    console.log(response);
     if (response.error === undefined) {
       localStorage.setItem('to-do', JSON.stringify(response));
       navigate('/home');
@@ -30,7 +30,7 @@ function FormLogin() {
   };
 
   return (
-    <form>
+    <FormStyled>
       <LabeledInput
         type="text"
         name="email"
@@ -49,7 +49,7 @@ function FormLogin() {
       >
         Login
       </button>
-    </form>
+    </FormStyled>
   );
 }
 

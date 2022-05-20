@@ -3,16 +3,19 @@ import Footer from '../Components/Footer';
 import FormLogin from '../Components/FormLogin';
 import FormRegister from '../Components/FormRegister';
 import Header from '../Components/Header';
+import { BodyStyled, MainStyled } from '../styles';
 
 function LoginPage() {
   return (
-    <>
+    <BodyStyled>
       <Header />
       LOGIN
-      <FormLogin />
-      <FormRegister />
+      <MainStyled>
+        <FormRegister />
+        <FormLogin />
+      </MainStyled>
       <Footer />
-    </>
+    </BodyStyled>
   );
 }
 
