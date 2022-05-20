@@ -12,7 +12,7 @@ class TaskController extends Controller<UserData> {
 
   constructor(
     public service: TaskService,
-    route = '/user',
+    route = '/task',
   ) {
     super(service);
     this._route = route;
@@ -28,6 +28,17 @@ class TaskController extends Controller<UserData> {
     const { authorization } = req.headers;
  
     const { status, response } = await this.service.create(authorization, body);
+
+    return res.status(status).json(response);
+  };
+
+  readOne = async (
+    req: RequestWithBody<TaskType>,
+    res: Response,
+  ): Promise<typeof res> => {
+    const { id } = req.headers;
+    
+    const { status, response } = await this.service.readOne(id);
 
     return res.status(status).json(response);
   };
