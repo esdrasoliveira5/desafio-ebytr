@@ -1,10 +1,11 @@
 import React from 'react';
+import { FooterStyled } from '../styles';
 
 function Footer() {
   return (
-    <footer>
-      Footer
-    </footer>
+    <FooterStyled>
+      <h3>Ebytr</h3>
+    </FooterStyled>
   );
 }
 
