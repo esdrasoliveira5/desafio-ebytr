@@ -34,12 +34,14 @@ function FormLogin() {
       <LabeledInput
         type="text"
         name="email"
+        label="Email"
         value={form.email}
         handle={handleForms}
       />
       <LabeledInput
         type="password"
         name="password"
+        label="Senha"
         value={form.password}
         handle={handleForms}
       />
