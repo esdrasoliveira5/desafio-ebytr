@@ -25,9 +25,6 @@ describe('1 - Test endpoint POST /user', () => {
 
     before(() => {
       sinon
-      .stub(user.model, 'findOne')
-      .resolves(null);
-      sinon
       .stub(user.model, 'create')
       .resolves(payload);
     });
@@ -58,15 +55,76 @@ describe('1 - Test endpoint POST /user', () => {
     let chaiHttpResponse: Response;
     before(() => {
       sinon
-      .stub(user.model, 'findOne')
-      .resolves(null);
-      sinon
       .stub(user.model, 'create')
       .rejects({ message: 'Internal Server Error'});
-      sinon
     });
     after(()=>{
       sinon.restore();
+    });
+
+    it('a) return status 500 and the error message "Internal Server Error"', async () => {
+      chaiHttpResponse = await chai
+         .request(server.app)
+         .post('/user')
+         .set('X-API-Key', 'foobar')
+         .send({
+          "userName": "Roberto",
+          "email": "roberto@email.com",
+          "password": "roberto_password",
+      });
+      expect(chaiHttpResponse).to.have.status(500);
+      expect(chaiHttpResponse.body).to.deep.equal({ "error": "Erro: Internal Server Error"});
+    });
+  })
+});
+
+describe('1 - Test endpoint POST /user/login', () => {
+  describe('1.1 - if success', () => {
+    let chaiHttpResponse: Response;
+
+    before(() => {
+      sinon
+      .stub(user.model, 'findOne')
+      .resolves(null);
+    });
+    after(()=>{
+      sinon.restore();
+    });
+    it('a) return status 201 and the user created', async () => {
+      chaiHttpResponse = await chai
+         .request(server.app)
+         .post('/user')
+         .set('X-API-Key', 'foobar')
+         .send({
+          "email": "roberto@email.com",
+          "password": "roberto_password",
+      });
+      expect(chaiHttpResponse).to.have.status(200);
+      expect(chaiHttpResponse.body).to.deep.equal({ user: payload, token: 'token' });
+    });
+  });
+  describe('1.2 - if fail', () => {
+    let chaiHttpResponse: Response;
+    before(() => {
+      sinon
+      .stub(user.model, 'findOne')
+      .resolves(null);
+    });
+    after(()=>{
+      sinon.restore();
+    });
+
+    it('a) return status 500 and the error message "Internal Server Error"', async () => {
+      chaiHttpResponse = await chai
+         .request(server.app)
+         .post('/user/login')
+         .set('X-API-Key', 'foobar')
+         .send({
+          "email": "roberto@email.com",
+          "password": "roberto_password",
+      });
+      expect(chaiHttpResponse).to.have.status(500);
+      expect(chaiHttpResponse.body).to.deep.equal({ "error": "Erro: Internal Server Error"});
     });
   })
 });
