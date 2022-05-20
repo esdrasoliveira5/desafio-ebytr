@@ -78,8 +78,8 @@ describe('1 - Test endpoint POST /user', () => {
   })
 });
 
-describe('1 - Test endpoint POST /user/login', () => {
-  describe('1.1 - if success', () => {
+describe('2 - Test endpoint POST /user/login', () => {
+  describe('2.1 - if success', () => {
     let chaiHttpResponse: Response;
 
     before(() => {
@@ -90,7 +90,7 @@ describe('1 - Test endpoint POST /user/login', () => {
     after(()=>{
       sinon.restore();
     });
-    it('a) return status 201 and the user created', async () => {
+    it('a) return status 200', async () => {
       chaiHttpResponse = await chai
          .request(server.app)
          .post('/user')
@@ -103,7 +103,7 @@ describe('1 - Test endpoint POST /user/login', () => {
       expect(chaiHttpResponse.body).to.deep.equal({ user: payload, token: 'token' });
     });
   });
-  describe('1.2 - if fail', () => {
+  describe('2.2 - if fail', () => {
     let chaiHttpResponse: Response;
     before(() => {
       sinon

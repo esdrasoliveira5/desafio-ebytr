@@ -36,4 +36,23 @@ describe('2 - Test UserModel', () => {
       expect(response).to.be.deep.equal(payload);
     });
   });
+
+  describe('2.1 - method findOne', () => {
+    before(async () => {
+      sinon
+        .stub(user.model, 'findOne')
+        .resolves(payload);
+    });
+  
+    after(()=>{
+      sinon.restore();
+    })
+  
+    it('return the user created in the db', async () => {
+      const response = await user.findOne({
+        email: 'roberto@email.com',
+      })
+      expect(response).to.be.deep.equal(payload);
+    });
+  });
 });
