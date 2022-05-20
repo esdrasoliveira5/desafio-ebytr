@@ -37,7 +37,7 @@ describe('2 - Test UserModel', () => {
     });
   });
 
-  describe('2.1 - method findOne', () => {
+  describe('2.2 - method readOne', () => {
     before(async () => {
       sinon
         .stub(user.model, 'findOne')
@@ -49,7 +49,7 @@ describe('2 - Test UserModel', () => {
     })
   
     it('return the user created in the db', async () => {
-      const response = await user.findOne({
+      const response = await user.readOne({
         email: 'roberto@email.com',
       })
       expect(response).to.be.deep.equal(payload);
