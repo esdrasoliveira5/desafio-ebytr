@@ -1,5 +1,6 @@
 import React from 'react';
 import Footer from '../Components/Footer';
+import FormRegister from '../Components/FormRegister';
 import Header from '../Components/Header';
 
 function LoginPage() {
@@ -7,6 +8,7 @@ function LoginPage() {
     <>
       <Header />
       LOGIN
+      <FormRegister />
       <Footer />
     </>
   );

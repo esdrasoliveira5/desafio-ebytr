@@ -1,8 +1,8 @@
-import React, { useEffect } from 'react';
+import React, { useState } from 'react';
 import LabeledInput from './Input';
 
 function FormRegister() {
-  const [form, setForm] = useEffect({
+  const [form, setForm] = useState({
     userName: '',
     email: '',
     password: '',
