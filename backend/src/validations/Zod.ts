@@ -8,7 +8,7 @@ class Zod {
     const parsedUser = this.userData.safeParse(obj);
     if (!parsedUser.success) {      
       return {
-        status: 401,
+        status: 400,
         response: { error: parsedUser.error },
       };
     }

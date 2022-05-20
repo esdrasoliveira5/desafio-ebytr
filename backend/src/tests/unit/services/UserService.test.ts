@@ -18,25 +18,40 @@ const payload = {
 
 describe('3 - Test UserService', () => {
   describe('3.1 - method create', () => {
-    before(async () => {
-      sinon
-        .stub(service.model, 'create')
-        .resolves(payload as unknown as UserId);
+    describe('a - if success', () => {
+      before(async () => {
+        sinon
+          .stub(service.model, 'create')
+          .resolves(payload as unknown as UserId);
+      });
+    
+      after(()=>{
+        sinon.restore();
+      });
+    
+      it('return the user created in the db', async () => {
+        const response = await service.create({
+          userName: 'Roberto',
+          email: 'roberto@email.com',
+          password: 'password',
+        });
+        expect(response).to.be.deep.equal({
+          status: 201,
+          response: {
+            user: payload,
+            token: 'token'
+          },
+        });
+      });
     });
-  
-    after(()=>{
-      sinon.restore();
-    })
-  
-    it('return the user created in the db', async () => {
-      const response = await service.create({
-        userName: 'Roberto',
-        email: 'roberto@email.com',
-        password: 'password',
-      })
-      expect(response).to.be.deep.equal({
-        status: 201,
-        response: payload,
+    describe('b - if fail', () => {
+      it('return the user created in the db', async () => {
+        const response = await service.create({
+          userName: '',
+          email: 'roberto@email.com',
+          password: 'password',
+        })
+        expect(response.status).to.be.deep.equal(400);
       });
     });
   });

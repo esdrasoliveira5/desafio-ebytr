@@ -34,7 +34,7 @@ describe('1 - Test UserController', () => {
       
       sinon
         .stub(controller.service, 'create')
-        .resolves({ status: 201, response: payload });
+        .resolves({ status: 201, response: { user: payload, token: 'token'} });
     });
   
     after(()=>{
@@ -45,7 +45,7 @@ describe('1 - Test UserController', () => {
       await controller.create(request, response);
       
       expect((response.status as sinon.SinonStub).calledWith(201)).to.be.equal(true);
-      expect((response.json as sinon.SinonStub).calledWith(payload)).to.be.equal(true);
+      expect((response.json as sinon.SinonStub).calledWith({ user: payload, token: 'token'})).to.be.equal(true);
     });
   });
 });
