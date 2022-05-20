@@ -1,6 +1,6 @@
 import { Model as M, Document, mongo } from 'mongoose';
 import { Model } from '../interfaces/ModelInterface';
-import { UserEmail, UserOrTaskId } from '../types';
+import { UserEmail } from '../types';
 import { TaskType } from '../types/TasksType';
 
 abstract class MongoModel<T> implements Model<T> {
@@ -8,8 +8,10 @@ abstract class MongoModel<T> implements Model<T> {
 
   create = async (obj: T): Promise<T> => this.model.create(obj);
 
-  readOne = async (obj: UserEmail | UserOrTaskId):
+  readOne = async (obj: UserEmail):
   Promise<T | null> => this.model.findOne(obj);
+
+  readAll = async (obj: UserEmail) => this.model.find(obj);
 
   creatTask = async (id:string, obj: TaskType): Promise<T | null> => {
     const response = await this.model.findByIdAndUpdate(
