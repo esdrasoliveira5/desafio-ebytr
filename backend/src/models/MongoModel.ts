@@ -1,4 +1,4 @@
-import { Model as M, Document } from 'mongoose';
+import { Model as M, Document, mongo } from 'mongoose';
 import { Model } from '../interfaces/ModelInterface';
 import { UserEmail, UserOrTaskId } from '../types';
 import { TaskType } from '../types/TasksType';
@@ -15,7 +15,11 @@ abstract class MongoModel<T> implements Model<T> {
     const response = await this.model.findByIdAndUpdate(
       id, 
       { 
-        $push: { tasks: { ...obj, date: new Date() } },
+        $push: { tasks: {
+          ...obj,
+          date: new Date(),
+          _id: new mongo.ObjectId(),
+        } },
       }, 
       { new: true },
     );

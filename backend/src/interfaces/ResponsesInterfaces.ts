@@ -22,3 +22,6 @@ export interface ResponseLogin<T> extends Status {
     token: string,
   };
 }
+export interface ResponseTask<T> extends Status {
+  response: T[];
+}
