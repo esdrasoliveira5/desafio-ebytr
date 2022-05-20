@@ -1,7 +1,7 @@
 import Service from '.';
 import {
   ResponseError,
-  ResponseUser,
+  ResponseLogin,
 } from '../interfaces/ResponsesInterfaces';
 import UserModel from '../models/UserModel';
 import { UserData } from '../types/UserDataType';
@@ -14,13 +14,24 @@ class UserService extends Service<User> {
   }
 
   create = async (obj:UserData):
-  Promise<ResponseUser<UserId> | ResponseError> => {
-    const dataValidation = this.zod.userData(obj);
+  Promise<ResponseLogin<UserId> | ResponseError> => {
+    const dataValidation = this.zod.userDataValidation(obj);
     if (dataValidation) return dataValidation;
 
-    const response = await this.model.create({ ...obj, tasks: [] }) as UserId;
+    const hash = await this.bcrypt.hashIt(obj.password);
 
-    return { status: 201, response };
+    const response = await this.model.create({
+      ...obj,
+      password: hash,
+      tasks: [],
+    }) as UserId;
+
+    const token = this.jwt.generate({ 
+      id: response._id,
+      email: response.email,
+    });
+
+    return { status: 201, response: { user: response, token } };
   };
 }
 
